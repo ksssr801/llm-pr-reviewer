@@ -1,6 +1,6 @@
 from app.config import get_settings
-from app.logger_config import get_logger
 from app.github.github_client import GitHubClient
+from app.logger_config import get_logger
 
 logger = get_logger(__name__)
 
@@ -29,7 +29,7 @@ async def start_review(repo: str, pr_number: int):
         extra={
             "repository": repo,
             "pull_request": pr_number,
-            "files": files,
+            "files": len(files),
         },
     )
 
@@ -43,8 +43,6 @@ async def start_review(repo: str, pr_number: int):
                 "deletions": file.get("deletions", 0),
             },
         )
-    
-    
 
     # Future pipeline
     # 1 fetch PR diff
