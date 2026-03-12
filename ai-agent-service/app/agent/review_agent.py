@@ -20,6 +20,31 @@ async def start_review(repo: str, pr_number: int):
         },
     )
 
+    client = GitHubClient()
+    files = await client.get_pull_request_files(repo, pr_number)
+
+    logger.info(
+        "PR files fetched",
+        extra={
+            "repository": repo,
+            "pull_request": pr_number,
+            "files": files,
+        },
+    )
+
+    for file in files:
+        logger.info(
+            "File change detected",
+            extra={
+                "filename": file.get("filename", ""),
+                "status": file.get("status", ""),
+                "additions": file.get("additions", 0),
+                "deletions": file.get("deletions", 0),
+            },
+        )
+    
+    
+
     # Future pipeline
     # 1 fetch PR diff
     # 2 parse files

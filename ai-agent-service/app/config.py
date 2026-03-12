@@ -22,7 +22,8 @@ class Settings(BaseSettings):
     # Github Integration
     github_token: str = ""
     github_webhook_secret: str = ""
-    ai_review_label: str = "ai-review"    
+    ai_review_label: str = "ai-review"
+    github_api_base: str = "https://api.github.com"
 
     # Logging
     log_level: str = "INFO"
