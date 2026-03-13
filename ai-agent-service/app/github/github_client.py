@@ -12,7 +12,9 @@ class GitHubClient:
 
     def __init__(self):
         self.settings = get_settings()
-
+        logger.info(
+            "GitHub token loaded", token_present=bool(self.settings.github_token)
+        )
         self.token = self.settings.github_token
 
         self.headers = {
@@ -63,7 +65,7 @@ class GitHubClient:
             "body": comment.comment,
             "commit_id": commit_id,
             "path": comment.filename,
-            "line": 1,
+            "line": comment.line,
         }
         async with httpx.AsyncClient() as client:
             response = await client.post(
@@ -71,8 +73,35 @@ class GitHubClient:
                 headers=self.headers,
                 json=payload,
             )
+        if response.status_code >= 400:
+            logger.error(
+                "GitHub API error while posting comment",
+                status=response.status_code,
+                response=response.text,
+                file=comment.filename,
+                line=comment.line,
+            )
         response.raise_for_status()
         logger.info(
             "Posted review comment",
             file=comment.filename,
         )
+
+    async def compare_commits(
+        self,
+        repo: str,
+        base_sha: str,
+        head_sha: str,
+    ):
+        """
+        Fetch changes between two commits.
+        """
+
+        url = f"https://api.github.com/repos/{repo}/compare/{base_sha}...{head_sha}"
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                url,
+                headers=self.headers,
+            )
+        response.raise_for_status()
+        return response.json()

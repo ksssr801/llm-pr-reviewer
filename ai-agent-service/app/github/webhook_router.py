@@ -35,11 +35,13 @@ async def github_webhook(request: Request):
         f"Webhook received: action={payload.action}, repo={payload.repository.full_name}"
     )
 
-    if should_trigger_review(payload):
+    trigger, review_mode = should_trigger_review(payload)
+    if trigger:
 
         await start_review(
             repo=payload.repository.full_name,
             pr_number=payload.pull_request.number,
+            review_mode=review_mode,
         )
 
     return {"status": "received"}

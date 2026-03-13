@@ -10,3 +10,4 @@ class ReviewComment:
     filename: str
     comment: str
     severity: str
+    line: int

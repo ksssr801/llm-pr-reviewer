@@ -31,6 +31,7 @@ class ChunkingService:
                     filename=diff.filename,
                     content=chunk_content,
                     chunk_index=index,
+                    line=diff.line, # TODO: check this logic 
                 )
                 chunks.append(chunk)
                 index += 1

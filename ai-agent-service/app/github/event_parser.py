@@ -25,7 +25,20 @@ def should_trigger_review(payload: WebhookPayload) -> bool:
     # if action == "synchronize":
     #     return True
 
-    if action == "labeled" and label_name == settings.ai_review_label:
-        return True
+    if action == "labeled" and label_name.startswith(settings.ai_review_label):
+        return (True, extract_review_mode(label_name))
 
-    return False
+    return (False, "brief")
+
+
+def extract_review_mode(label: str) -> str:
+    """
+    Extracts the review mode from the payload.
+    """
+    if not label:
+        return "brief"
+    if "ai-review:deep" in label:
+        return "deep"
+    if "ai-review:standard" in label:
+        return "standard"
+    return "brief"
