@@ -4,6 +4,7 @@ import uvicorn
 from app.chat.chat_router import router as chat_router
 from app.config import Settings, get_settings
 from app.github.webhook_router import router as github_router
+from app.infra.redis_client import init_redis
 from app.logger_config import configure_logging, get_logger
 from fastapi import FastAPI
 
@@ -17,6 +18,7 @@ logger = get_logger(__name__)
 async def lifespan(app: FastAPI):
     # Startup actions
     configure_logging()
+    await init_redis()
     settings = get_settings()
     logger.info("Starting AI Agent Service", env=settings.environment, version="0.1.0")
     yield

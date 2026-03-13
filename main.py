@@ -1,5 +1,5 @@
 def main():
-    print("Hello from leave-policy-agent-system!")
+    print("Hello from ai-code-review-agent!")
 
 
 if __name__ == "__main__":
