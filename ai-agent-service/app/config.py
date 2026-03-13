@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     github_webhook_secret: str = ""
     ai_review_label: str = "ai-review"
     github_api_base: str = "https://api.github.com"
+    
+    # Redis
+    redis_url: str = "redis://localhost:6379/0"
 
     # Logging
     log_level: str = "INFO"

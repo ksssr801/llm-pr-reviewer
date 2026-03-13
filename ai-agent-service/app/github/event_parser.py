@@ -19,11 +19,11 @@ def should_trigger_review(payload: WebhookPayload) -> bool:
         label_name = payload.label.name
     logger.info(f"Action: {action}, Label: {label_name}")
 
-    if action == "opened":
-        return True
+    # if action == "opened":
+    #     return True
 
-    if action == "synchronize":
-        return True
+    # if action == "synchronize":
+    #     return True
 
     if action == "labeled" and label_name == settings.ai_review_label:
         return True
