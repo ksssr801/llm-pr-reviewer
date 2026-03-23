@@ -1,3 +1,5 @@
-## AI Code Review Agent
+## LLM PR Reviewer
 
-This is a AI code review agent that can be used to review code and provide feedback.
+AI-based pull request review system that analyzes code diffs using LLMs and generates structured feedback.
+
+Supports multiple review modes (brief, standard, deep) with Redis-based incremental tracking to avoid duplicate reviews.
