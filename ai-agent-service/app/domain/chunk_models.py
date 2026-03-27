@@ -10,3 +10,4 @@ class DiffChunk:
     filename: str
     content: str
     chunk_index: int
+    line: int

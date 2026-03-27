@@ -12,6 +12,8 @@ class FileDiff:
     patch: str
     additions: int
     deletions: int
+    line: int
+    side: str
 
     @property
     def change_size(self) -> int:

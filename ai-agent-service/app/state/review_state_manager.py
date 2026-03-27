@@ -1,4 +1,4 @@
-from app.infrastructure.redis_client import get_redis
+from app.infra.redis_client import get_redis
 from app.logger_config import get_logger
 
 logger = get_logger(__name__)
